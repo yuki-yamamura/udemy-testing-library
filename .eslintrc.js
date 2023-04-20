@@ -58,6 +58,7 @@ module.exports = {
         extensions: ['.jsx', '.tsx'],
       },
     ],
+    'react/react-in-jsx-scope': 'off',
   },
   root: true,
   settings: {
