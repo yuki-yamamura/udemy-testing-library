@@ -12,7 +12,7 @@ export default function Button({ disabled }: Props) {
       type="button"
       disabled={disabled}
       onClick={() => setColor(nextColor)}
-      style={{ color: 'white', backgroundColor: color }}
+      style={{ color: 'white', backgroundColor: disabled ? 'gray' : color }}
       className={styles.btn}
     >
       Change to {nextColor}
