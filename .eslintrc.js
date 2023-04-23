@@ -12,6 +12,10 @@ module.exports = {
     'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'plugin:jest/recommended',
+    'plugin:jest/style',
+    'plugin:testing-library/react',
+    'plugin:jest-dom/recommended',
     'prettier',
   ],
   overrides: [],
@@ -22,7 +26,16 @@ module.exports = {
     sourceType: 'module',
     tsconfigRootDir: __dirname,
   },
-  plugins: ['@typescript-eslint', 'import', 'jsx-a11y', 'react', 'react-hooks'],
+  plugins: [
+    '@typescript-eslint',
+    'import',
+    'jsx-a11y',
+    'react',
+    'react-hooks',
+    'jest',
+    'testing-library',
+    'jest-dom',
+  ],
   rules: {
     'padding-line-between-statements': [
       'error',
