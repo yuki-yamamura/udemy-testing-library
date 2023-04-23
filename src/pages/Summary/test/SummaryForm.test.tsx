@@ -1,4 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import SummaryForm from '../SummaryForm';
 
 describe('SummaryForm', () => {
@@ -13,8 +14,9 @@ describe('SummaryForm', () => {
     expect(button).toBeDisabled();
   });
 
-  test('checkbox enables button on first click, and disables on second click', () => {
+  test('checkbox enables button on first click, and disables on second click', async () => {
     render(<SummaryForm />);
+    const user = userEvent.setup();
     const checkbox = screen.getByRole('checkbox', {
       name: /terms and conditions/i,
     });
@@ -22,10 +24,10 @@ describe('SummaryForm', () => {
 
     expect(button).toBeDisabled();
 
-    fireEvent.click(checkbox);
+    await user.click(checkbox);
     expect(button).toBeEnabled();
 
-    fireEvent.click(checkbox);
+    await user.click(checkbox);
     expect(button).toBeDisabled();
   });
 });
