@@ -1,5 +1,5 @@
-import ColorButton from 'features/ColorButton';
+import SummaryForm from 'pages/Summary/SummaryForm';
 
 export default function App() {
-  return <ColorButton />;
+  return <SummaryForm />;
 }
