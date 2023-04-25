@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import ScoopOption, { Scoop } from './ScoopOption';
+import ToppingOption from './ToppingOption';
 
 type Props = { optionType: 'scoops' | 'toppings' };
 
@@ -18,18 +19,17 @@ export default function Options({ optionType }: Props) {
   }, [optionType]);
 
   // TODO: replace null to ToppingOption
-  const ItemComponent = optionType === 'scoops' ? ScoopOption : null;
+  const ItemComponent = optionType === 'scoops' ? ScoopOption : ToppingOption;
 
   return (
     <>
-      {items.map((item) => {
-        const { name, imagePath } = item;
-
-        // TODO: remove ternary expression
-        return ItemComponent === null ? null : (
-          <ItemComponent name={name} imagePath={imagePath} key={name} />
-        );
-      })}
+      {items.map((item) => (
+        <ItemComponent
+          name={item.name}
+          imagePath={item.imagePath}
+          key={item.name}
+        />
+      ))}
     </>
   );
 }
