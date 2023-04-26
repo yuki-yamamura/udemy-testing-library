@@ -80,6 +80,7 @@ module.exports = {
         },
       },
     ],
+    'react/require-default-props': 'off',
   },
   root: true,
   settings: {
