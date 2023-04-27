@@ -1,7 +1,10 @@
-// import SummaryForm from 'pages/Summary/SummaryForm';
 import OrderEntry from 'pages/entry/OrderEntry';
+import { OrderDetailsProvider } from 'contexts/OrderDetails';
 
 export default function App() {
-  // return <SummaryForm />;
-  return <OrderEntry />;
+  return (
+    <OrderDetailsProvider>
+      <OrderEntry />;
+    </OrderDetailsProvider>
+  );
 }

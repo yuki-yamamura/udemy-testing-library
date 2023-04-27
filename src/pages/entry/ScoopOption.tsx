@@ -1,10 +1,27 @@
-export type Scoop = {
-  name: string;
-  imagePath: string;
-};
+import { useOrderDetails } from 'contexts/OrderDetails';
+import { Scoop } from 'types/Scoop';
 
-export default function ScoopOption({ name, imagePath }: Scoop) {
+export type Props = { scoop: Scoop };
+
+export default function ScoopOption({ scoop }: Props) {
+  const { updateItemCount } = useOrderDetails();
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    updateItemCount(scoop.name, parseInt(e.target.value, 10), 'scoops');
+
   return (
-    <img src={`http://localhost:3030/${imagePath}`} alt={`${name} scoop`} />
+    <div>
+      <label htmlFor={`${scoop.name}-count`}>{scoop.name}</label>
+      <input
+        id={`${scoop.name}-count`}
+        type="number"
+        value="0"
+        onChange={handleChange}
+        role="spinbutton"
+      />
+      <img
+        src={`http://localhost:3030/${scoop.imagePath}`}
+        alt={`${scoop.name} scoop`}
+      />
+    </div>
   );
 }

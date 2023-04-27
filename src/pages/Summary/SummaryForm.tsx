@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from 'react';
 
 export default function SummaryForm() {
   const [isChecked, setIsChecked] = useState(false);
-  const checkHandler = (e: ChangeEvent<HTMLInputElement>) =>
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setIsChecked(e.target.checked);
 
   return (
@@ -12,7 +12,7 @@ export default function SummaryForm() {
           id="terms-and-conditions"
           type="checkbox"
           checked={isChecked}
-          onChange={checkHandler}
+          onChange={handleChange}
         />
         I agree{' '}
         <label

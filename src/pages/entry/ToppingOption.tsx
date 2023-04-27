@@ -1,11 +1,13 @@
-type Topping = {
-  name: string;
-  imagePath: string;
-};
+import { Topping } from 'types/Topping';
 
-function ToppingOption({ name, imagePath }: Topping) {
+type Props = { topping: Topping };
+
+function ToppingOption({ topping }: Props) {
   return (
-    <img src={`http://localhost:3030/${imagePath}`} alt={`${name} topping`} />
+    <img
+      src={`http://localhost:3030/${topping.imagePath}`}
+      alt={`${topping.name} topping`}
+    />
   );
 }
 

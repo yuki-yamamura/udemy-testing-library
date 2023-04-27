@@ -1,12 +1,17 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import AlertBanner from 'common/AlertBanner';
-import ScoopOption, { Scoop } from './ScoopOption';
+import { pricePerItem } from 'common/constants';
+import { formatCurrency } from 'common/utils';
+import { useOrderDetails } from 'contexts/OrderDetails';
+import { Scoop } from 'types/Scoop';
+import ScoopOption from './ScoopOption';
 import ToppingOption from './ToppingOption';
 
 type Props = { optionType: 'scoops' | 'toppings' };
 
 export default function Options({ optionType }: Props) {
+  const { totals } = useOrderDetails();
   const [items, setItems] = useState<Scoop[]>([]);
   const [error, setError] = useState(false);
 
@@ -19,18 +24,23 @@ export default function Options({ optionType }: Props) {
       });
   }, [optionType]);
 
-  const ItemComponent = optionType === 'scoops' ? ScoopOption : ToppingOption;
+  const title = optionType[0].toUpperCase() + optionType.slice(1).toLowerCase();
 
   return (
     <>
       {error && <AlertBanner />}
-      {items.map((item) => (
-        <ItemComponent
-          name={item.name}
-          imagePath={item.imagePath}
-          key={item.name}
-        />
-      ))}
+      <h2>{title}</h2>
+      <p>{formatCurrency(pricePerItem[optionType])} each</p>
+      <p>{`${title} total: ${formatCurrency(totals[optionType])}`}</p>
+      <ul>
+        {items.map((item) =>
+          optionType === 'scoops' ? (
+            <ScoopOption scoop={item} key={item.name} />
+          ) : (
+            <ToppingOption topping={item} key={item.name} />
+          ),
+        )}
+      </ul>
     </>
   );
 }
