@@ -53,19 +53,21 @@ test('update topping subtotal when toppings change', async () => {
 
 describe('grand total', () => {
   test('starts at $0.00', () => {
-    render(<OrderEntry />);
+    const { unmount } = render(<OrderEntry />);
 
     const glandTotal = screen.getByRole('heading', {
-      name: /Gland total: \$/i,
+      name: /Gland total: \$/,
     });
     expect(glandTotal).toHaveTextContent('$0.00');
+
+    unmount();
   });
 
   test('updates properly if scoop is added first', async () => {
     render(<OrderEntry />);
     const user = userEvent.setup();
     const glandTotal = screen.getByRole('heading', {
-      name: /Gland total: \$/i,
+      name: /Gland total: \$/,
     });
 
     const chocolateScoop = await screen.findByRole('spinbutton', {
@@ -86,7 +88,7 @@ describe('grand total', () => {
     render(<OrderEntry />);
     const user = userEvent.setup();
     const glandTotal = screen.getByRole('heading', {
-      name: /Gland total: \$/i,
+      name: /Gland total: \$/,
     });
 
     const cherriesTopping = await screen.findByRole('checkbox', {
@@ -107,7 +109,7 @@ describe('grand total', () => {
     render(<OrderEntry />);
     const user = userEvent.setup();
     const glandTotal = screen.getByRole('heading', {
-      name: /Gland total: \$/i,
+      name: /Gland total: \$/,
     });
 
     const chocolateScoop = await screen.findByRole('spinbutton', {

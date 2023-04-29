@@ -16,12 +16,19 @@ export default function Options({ optionType }: Props) {
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    const controller = new AbortController();
     axios
-      .get(`http://localhost:3030/${optionType}`)
+      .get(`http://localhost:3030/${optionType}`, {
+        signal: controller.signal,
+      })
       .then((res) => setItems(res.data as Scoop[]))
-      .catch((_) => {
-        setError(true);
+      .catch((err: Error) => {
+        if (err.name !== 'CanceledError') {
+          setError(true);
+        }
       });
+
+    return () => controller.abort();
   }, [optionType]);
 
   const title = optionType[0].toUpperCase() + optionType.slice(1).toLowerCase();
