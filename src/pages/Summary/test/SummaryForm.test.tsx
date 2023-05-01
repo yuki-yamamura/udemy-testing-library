@@ -4,7 +4,7 @@ import SummaryForm from '../SummaryForm';
 
 describe('SummaryForm', () => {
   test('has correct initial conditions', () => {
-    render(<SummaryForm />);
+    render(<SummaryForm setOrderPhase={jest.fn()} />);
     const checkbox = screen.getByRole('checkbox', {
       name: /terms and conditions/i,
     });
@@ -15,7 +15,7 @@ describe('SummaryForm', () => {
   });
 
   test('checkbox enables button on first click, and disables on second click', async () => {
-    render(<SummaryForm />);
+    render(<SummaryForm setOrderPhase={jest.fn()} />);
     const user = userEvent.setup();
     const checkbox = screen.getByRole('checkbox', {
       name: /terms and conditions/i,

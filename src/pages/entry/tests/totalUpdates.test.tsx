@@ -53,7 +53,7 @@ test('update topping subtotal when toppings change', async () => {
 
 describe('grand total', () => {
   test('starts at $0.00', () => {
-    const { unmount } = render(<OrderEntry />);
+    const { unmount } = render(<OrderEntry setOrderPhase={jest.fn()} />);
 
     const glandTotal = screen.getByRole('heading', {
       name: /Gland total: \$/,
@@ -64,7 +64,7 @@ describe('grand total', () => {
   });
 
   test('updates properly if scoop is added first', async () => {
-    render(<OrderEntry />);
+    render(<OrderEntry setOrderPhase={jest.fn()} />);
     const user = userEvent.setup();
     const glandTotal = screen.getByRole('heading', {
       name: /Gland total: \$/,
@@ -85,7 +85,7 @@ describe('grand total', () => {
     expect(glandTotal).toHaveTextContent('$3.50');
   });
   test('updates properly if topping is added first', async () => {
-    render(<OrderEntry />);
+    render(<OrderEntry setOrderPhase={jest.fn()} />);
     const user = userEvent.setup();
     const glandTotal = screen.getByRole('heading', {
       name: /Gland total: \$/,
@@ -106,7 +106,7 @@ describe('grand total', () => {
   });
 
   test('updates property if item is removed', async () => {
-    render(<OrderEntry />);
+    render(<OrderEntry setOrderPhase={jest.fn()} />);
     const user = userEvent.setup();
     const glandTotal = screen.getByRole('heading', {
       name: /Gland total: \$/,

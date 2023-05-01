@@ -1,9 +1,14 @@
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
+import { OrderPhase } from 'types/OrderPhase';
 
-export default function SummaryForm() {
+type Props = { setOrderPhase: (orderPhase: OrderPhase) => void };
+
+export default function SummaryForm({ setOrderPhase }: Props) {
   const [isChecked, setIsChecked] = useState(false);
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(e.target.checked);
+  };
+  const handleClick = () => setOrderPhase('completed');
 
   return (
     <>
@@ -22,7 +27,7 @@ export default function SummaryForm() {
           Terms and Conditions
         </label>
       </div>
-      <button type="button" disabled={!isChecked}>
+      <button type="button" disabled={!isChecked} onClick={handleClick}>
         Confirm order
       </button>
     </>

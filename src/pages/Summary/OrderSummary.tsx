@@ -1,8 +1,11 @@
 import { useOrderDetails } from 'contexts/OrderDetails';
 import { formatCurrency } from 'common/utils';
+import { OrderPhase } from 'types/OrderPhase';
 import SummaryForm from './SummaryForm';
 
-export default function OrderSummary() {
+type Props = { setOrderPhase: (orderPhase: OrderPhase) => void };
+
+export default function OrderSummary({ setOrderPhase }: Props) {
   const { totals, optionCounts } = useOrderDetails();
 
   const scoopList = Object.entries(optionCounts.scoops).map(([key, value]) => (
@@ -25,7 +28,7 @@ export default function OrderSummary() {
         <ul>{toppingList}</ul>
       </div>
       <div>Total: {formatCurrency(total)}</div>
-      <SummaryForm />
+      <SummaryForm setOrderPhase={setOrderPhase} />
     </>
   );
 }
