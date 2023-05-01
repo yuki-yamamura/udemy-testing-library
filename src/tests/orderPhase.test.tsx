@@ -75,3 +75,24 @@ test('order phases for happy path', async () => {
 
   unmount();
 });
+
+test('no toppings for happy path', async () => {
+  render(<App />);
+  const user = userEvent.setup();
+
+  const chocolateInput = await screen.findByRole('spinbutton', {
+    name: /chocolate/i,
+  });
+  await user.clear(chocolateInput);
+  await user.type(chocolateInput, '1');
+
+  const orderButton = screen.getByRole('button', { name: /order sundae/i });
+  await user.click(orderButton);
+
+  expect(
+    screen.getByRole('heading', { name: /scoops: \$2.00/i }),
+  ).toBeInTheDocument();
+  expect(
+    screen.queryByRole('heading', { name: /toppings/i }),
+  ).not.toBeInTheDocument();
+});

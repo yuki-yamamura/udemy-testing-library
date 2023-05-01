@@ -7,6 +7,7 @@ type Props = { setOrderPhase: (orderPhase: OrderPhase) => void };
 
 export default function OrderSummary({ setOrderPhase }: Props) {
   const { totals, optionCounts } = useOrderDetails();
+  const hasToppings = totals.toppings === 0;
 
   const scoopList = Object.entries(optionCounts.scoops).map(([key, value]) => (
     <li key={key}>{`${value} ${key}`}</li>
@@ -24,8 +25,12 @@ export default function OrderSummary({ setOrderPhase }: Props) {
         <ul>{scoopList}</ul>
       </div>
       <div>
-        <h2>Toppings: {formatCurrency(totals.toppings)}</h2>
-        <ul>{toppingList}</ul>
+        {!hasToppings && (
+          <>
+            <h2>Toppings: {formatCurrency(totals.toppings)}</h2>
+            <ul>{toppingList}</ul>
+          </>
+        )}
       </div>
       <div>Total: {formatCurrency(total)}</div>
       <SummaryForm setOrderPhase={setOrderPhase} />
