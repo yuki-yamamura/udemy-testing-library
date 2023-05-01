@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from 'test-utils/testing-library-utils';
 import { rest } from 'msw';
 import server from 'mocks/server';
+import userEvent from '@testing-library/user-event';
 import OrderEntry from '../OrderEntry';
 
 test('handles error for scoops and toppings', async () => {
@@ -19,4 +20,23 @@ test('handles error for scoops and toppings', async () => {
     const alerts = await screen.findAllByRole('alert');
     expect(alerts).toHaveLength(2);
   });
+});
+
+test('disables order button if no scoops selected', async () => {
+  render(<OrderEntry setOrderPhase={jest.fn()} />);
+  const user = userEvent.setup();
+
+  const orderButton = screen.getByRole('button', { name: /order sundae/i });
+  expect(orderButton).toBeDisabled();
+
+  const vanillaInput = await screen.findByRole('spinbutton', {
+    name: /vanilla/i,
+  });
+  await user.clear(vanillaInput);
+  await user.type(vanillaInput, '1');
+  expect(orderButton).toBeEnabled();
+
+  await user.clear(vanillaInput);
+  await user.type(vanillaInput, '0');
+  expect(orderButton).toBeDisabled();
 });
