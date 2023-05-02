@@ -11,13 +11,16 @@ function ToppingOption({ topping }: Props) {
   };
 
   return (
-    <div>
-      <label htmlFor={topping.name}>{topping.name}</label>
-      <input id={topping.name} type="checkbox" onChange={handleChange} />
+    <div className="flex flex-col items-center">
       <img
         src={`http://localhost:3030/${topping.imagePath}`}
         alt={`${topping.name} topping`}
+        className="mb-2 h-40 w-40"
       />
+      <div className="flex gap-x-4">
+        <label htmlFor={topping.name}>{topping.name}</label>
+        <input id={topping.name} type="checkbox" onChange={handleChange} />
+      </div>
     </div>
   );
 }

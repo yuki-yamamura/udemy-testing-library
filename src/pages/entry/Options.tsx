@@ -16,19 +16,12 @@ export default function Options({ optionType }: Props) {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    const controller = new AbortController();
     axios
-      .get(`http://localhost:3030/${optionType}`, {
-        signal: controller.signal,
-      })
+      .get(`http://localhost:3030/${optionType}`)
       .then((res) => setItems(res.data as Scoop[]))
-      .catch((err: Error) => {
-        if (err.name !== 'CanceledError') {
-          setError(true);
-        }
+      .catch((_) => {
+        setError(true);
       });
-
-    return () => controller.abort();
   }, [optionType]);
 
   const title = optionType[0].toUpperCase() + optionType.slice(1).toLowerCase();
@@ -39,7 +32,11 @@ export default function Options({ optionType }: Props) {
       <h2>{title}</h2>
       <p>{formatCurrency(pricePerItem[optionType])} each</p>
       <p>{`${title} total: ${formatCurrency(totals[optionType])}`}</p>
-      <ul>
+      <ul
+        className={`flex flex-row justify-center ${
+          optionType === 'scoops' ? 'gap-x-20' : 'gap-x-10'
+        }`}
+      >
         {items.map((item) =>
           optionType === 'scoops' ? (
             <ScoopOption scoop={item} key={item.name} />

@@ -25,19 +25,26 @@ export default function ScoopOption({ scoop }: Props) {
 
   return (
     <div>
-      <label htmlFor={`${scoop.name}-count`}>{scoop.name}</label>
-      <input
-        id={`${scoop.name}-count`}
-        type="number"
-        value={inputValue}
-        onChange={handleChange}
-        role="spinbutton"
-        className={`${!isValid(inputValue) ? 'is-invalid' : ''}`}
-      />
       <img
         src={`http://localhost:3030/${scoop.imagePath}`}
         alt={`${scoop.name} scoop`}
+        className="mb-4 h-60 w-60"
       />
+      <div className="flex justify-center gap-x-4">
+        <label htmlFor={`${scoop.name}-count`} className="">
+          {scoop.name}
+        </label>
+        <input
+          id={`${scoop.name}-count`}
+          type="number"
+          value={inputValue}
+          onChange={handleChange}
+          role="spinbutton"
+          className={`w-20 rounded text-black ${
+            !isValid(inputValue) ? 'is-invalid' : ''
+          }`}
+        />
+      </div>
     </div>
   );
 }

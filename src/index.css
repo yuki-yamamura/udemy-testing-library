@@ -2,8 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    @apply mx-auto max-w-7xl bg-teal-600 text-white;
+  }
+
+  h1 {
+    @apply text-4xl;
+  }
+
+  h2 {
+    @apply text-2xl;
+  }
+
+  li {
+    @apply list-disc;
+  }
+}
+
 @layer components {
   .is-invalid {
     @apply border border-red-400;
+  }
+
+  .btn {
+    @apply rounded bg-blue-500 p-2;
   }
 }

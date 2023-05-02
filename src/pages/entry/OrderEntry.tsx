@@ -20,11 +20,19 @@ export default function OrderEntry({ setOrderPhase }: Props) {
 
   return (
     <div>
+      <h1>Order Your Sundae!</h1>
       <Options optionType="scoops" />
       <Options optionType="toppings" />
       <div>
-        <h2>{`Gland total: ${formatCurrency(glandTotal)}`}</h2>
-        <button type="button" onClick={handleClick} disabled={!hasScoop}>
+        <h2 className="mb-4 text-2xl">{`Gland total: ${formatCurrency(
+          glandTotal,
+        )}`}</h2>
+        <button
+          type="button"
+          onClick={handleClick}
+          disabled={!hasScoop}
+          className="btn"
+        >
           Order Sundae!
         </button>
       </div>

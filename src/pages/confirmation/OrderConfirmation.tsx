@@ -41,8 +41,10 @@ export default function OrderConfirmation({ setOrderPhase }: Props) {
         <>
           <h1>Thank you!</h1>
           <p>Your order number is {orderNumber}</p>
-          <p>as per our terms and conditions, nothing will happen now</p>
-          <button type="button" onClick={handleClick}>
+          <p className="text-[6px]">
+            as per our terms and conditions, nothing will happen now
+          </p>
+          <button type="button" onClick={handleClick} className="btn">
             Create new order
           </button>
         </>

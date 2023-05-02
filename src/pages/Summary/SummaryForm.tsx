@@ -22,12 +22,17 @@ export default function SummaryForm({ setOrderPhase }: Props) {
         I agree{' '}
         <label
           htmlFor="terms-and-conditions"
-          className="inline text-blue-400 hover:after:ml-4 hover:after:text-black hover:after:content-['No_ice_cream_will_actually_delivered']"
+          className="ml-2 inline  text-blue-600 hover:after:ml-4 hover:after:text-black hover:after:content-['No_ice_cream_will_actually_delivered']"
         >
           Terms and Conditions
         </label>
       </div>
-      <button type="button" disabled={!isChecked} onClick={handleClick}>
+      <button
+        type="button"
+        disabled={!isChecked}
+        onClick={handleClick}
+        className="btn"
+      >
         Confirm order
       </button>
     </>
