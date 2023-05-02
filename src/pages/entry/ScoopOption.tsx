@@ -5,18 +5,23 @@ import { useState } from 'react';
 export type Props = { scoop: Scoop };
 
 export default function ScoopOption({ scoop }: Props) {
-  const initialValue = '0';
-  const [inputValue, setInputValue] = useState(initialValue);
+  const [inputValue, setInputValue] = useState('0');
   const { updateItemCount } = useOrderDetails();
+
+  const isValid = (value: string) =>
+    Number.parseInt(value, 10) >= 0 &&
+    Number.parseInt(value, 10) <= 10 &&
+    Number.isInteger(Number.parseFloat(value));
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateItemCount(scoop.name, parseInt(e.target.value, 10), 'scoops');
-    setInputValue(e.target.value);
+    const { value } = e.target;
+    updateItemCount(
+      scoop.name,
+      parseInt(isValid(value) ? value : '0', 10),
+      'scoops',
+    );
+    setInputValue(value);
   };
-  const isValid =
-    inputValue === initialValue ||
-    (Number.parseInt(inputValue, 10) >= 1 &&
-      Number.parseInt(inputValue, 10) <= 10 &&
-      Number.isInteger(Number.parseFloat(inputValue)));
 
   return (
     <div>
@@ -27,7 +32,7 @@ export default function ScoopOption({ scoop }: Props) {
         value={inputValue}
         onChange={handleChange}
         role="spinbutton"
-        className={`${!isValid ? 'is-invalid' : ''}`}
+        className={`${!isValid(inputValue) ? 'is-invalid' : ''}`}
       />
       <img
         src={`http://localhost:3030/${scoop.imagePath}`}

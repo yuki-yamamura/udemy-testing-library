@@ -1,5 +1,6 @@
 import { render, screen } from 'test-utils/testing-library-utils';
 import { OrderDetailsProvider } from 'contexts/OrderDetails';
+import userEvent from '@testing-library/user-event';
 import Options from '../Options';
 
 test('displays image for each scoop option from server', async () => {
@@ -26,4 +27,34 @@ test('displays image for each topping option from server', async () => {
     'M&Ms topping',
     'Hot fudge topping',
   ]);
+});
+
+test('invalid input should not affect scoops total', async () => {
+  render(<Options optionType="scoops" />);
+  const user = userEvent.setup();
+
+  const scoopsTotal = screen.getByText(/scoops total: \$/i);
+  expect(scoopsTotal).toHaveTextContent('0.00');
+
+  const vanillaInput = await screen.findByRole('spinbutton', {
+    name: /vanilla/i,
+  });
+  await user.clear(vanillaInput);
+  await user.type(vanillaInput, '-1');
+  expect(scoopsTotal).toHaveTextContent('0.00');
+
+  await user.clear(vanillaInput);
+  await user.type(vanillaInput, '1');
+  expect(scoopsTotal).toHaveTextContent('2.00');
+
+  const chocolateInput = screen.getByRole('spinbutton', {
+    name: /chocolate/i,
+  });
+  await user.clear(chocolateInput);
+  await user.type(chocolateInput, '12');
+  expect(scoopsTotal).toHaveTextContent('2.00');
+
+  await user.clear(vanillaInput);
+  await user.type(vanillaInput, '2.5');
+  expect(scoopsTotal).toHaveTextContent('0.00');
 });
